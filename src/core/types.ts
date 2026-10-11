@@ -8,6 +8,7 @@ export type Extraction = {
   documentType: 'utility' | 'school' | 'insurance' | 'housing' | 'appointment' | 'other';
   sender: string | null;
   purpose: string;
+  purposeEs: string;
   requiredAction: string | null;
   requiredActionEs: string | null;
   deadline: string | null;
