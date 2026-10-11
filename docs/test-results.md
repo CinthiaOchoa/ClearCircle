@@ -13,7 +13,7 @@ Verified locally on October 10, 2026. Results describe this implementation, not 
 | Web `npm test` | **8 passed** | Four workflows on desktop and mobile Chromium against the production build and actual local coordinator/SQLite/API with synthetic fixture data |
 | Agent live suite | **2 skipped** | No Photon or Gemini credentials available; zero live integrations passed |
 | Production dependency audit | **0 vulnerabilities reported** | Both agent and web `npm audit --omit=dev`; explicit compatible-major overrides for OpenTelemetry core and PostCSS |
-| GitHub Actions | See PR checks | CI configured; local results do not prove hosted workflow success |
+| GitHub Actions | **Not run: publication blocked** | CI configured; no remote branch or PR exists yet. See [publication status](publication-status.md) |
 
 ## Browser verification
 
