@@ -1,0 +1,28 @@
+{
+  "name": "clearcircle-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "node --experimental-strip-types --watch src/index.ts",
+    "start": "node --experimental-strip-types src/index.ts",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "check": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "test:live": "node --experimental-strip-types --test tests/live/*.test.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "@spectrum-ts/core": "12.10.1",
+    "@spectrum-ts/imessage": "12.10.1",
+    "dotenv": "^16.5.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.8.0"
+  }
+}
