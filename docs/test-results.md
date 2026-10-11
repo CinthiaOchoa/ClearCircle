@@ -13,7 +13,7 @@ Verified locally on October 10, 2026. Results describe this implementation, not 
 | Web `npm test` | **8 passed** | Four workflows on desktop and mobile Chromium against the production build and actual local coordinator/SQLite/API with synthetic fixture data |
 | Agent live suite | **2 skipped** | No Photon or Gemini credentials available; zero live integrations passed |
 | Production dependency audit | **0 vulnerabilities reported** | Both agent and web `npm audit --omit=dev`; explicit compatible-major overrides for OpenTelemetry core and PostCSS |
-| GitHub Actions | **Check hosted run separately** | All feature branches and PR #1 are published. Local results above do not imply hosted CI passed. See [publication status](publication-status.md) |
+| GitHub Actions | **Passed on published implementation** | [PR run 38098235116](https://github.com/CinthiaOchoa/ClearCircle/actions/runs/38098235116): agent and web jobs passed, including 34 backend tests, 8 browser tests, type checks, builds and production audits. Documentation follow-ups have separate runs; inspect the PR checks for the latest head. |
 
 ## Browser verification
 
@@ -21,7 +21,7 @@ Desktop viewport: 1440 × 1000. Mobile viewport: 393 × 852. Tested: supporting 
 
 The screenshots in `docs/screenshots/` use only synthetic data. The private-dashboard screenshots exercise the real API through `web/tests/browser-agent.ts`, which never imports the production entrypoint or contacts an external provider.
 
-Default Playwright browser downloads failed in this environment with truncated/empty archives. A successfully downloaded **Chromium Headless Shell 134.0.6998.35** was selected with `PLAYWRIGHT_CHROMIUM_EXECUTABLE` for local checks. Matching-current-browser, Safari/WebKit, real-device iMessage and real phones remain unverified. CI is configured to install Playwright's matching Chromium.
+Default Playwright browser downloads failed in this environment with truncated/empty archives. A successfully downloaded **Chromium Headless Shell 134.0.6998.35** was selected with `PLAYWRIGHT_CHROMIUM_EXECUTABLE` for local checks. Hosted PR run 38098235116 subsequently installed Playwright's matching Chromium and passed all eight browser tests. Safari/WebKit, real-device iMessage and real phones remain unverified.
 
 ## ZIP review and completed corrections
 

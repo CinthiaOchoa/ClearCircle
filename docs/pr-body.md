@@ -21,7 +21,7 @@ Four stacked feature branches: `feat/photon-integration` → `feat/document-ai` 
 - Agent and frontend TypeScript checks and production builds pass.
 - Both production dependency audits report zero vulnerabilities after compatible-major dependency overrides.
 - **Two live-provider tests skip because Photon/Gemini credentials were unavailable.** Actual iMessage delivery, group behavior and live extraction accuracy remain unverified.
-- Local browser checks used Chromium Headless Shell 134 after restricted default downloads failed; hosted CI/matching browser status must be checked separately.
+- Local browser checks used Chromium Headless Shell 134 after restricted default downloads failed. [Hosted PR run 38098235116](https://github.com/CinthiaOchoa/ClearCircle/actions/runs/38098235116) passed both jobs, including eight browser tests using Playwright's matching Chromium. Inspect PR checks for documentation follow-up runs.
 
 ## Screenshots and handoff
 
