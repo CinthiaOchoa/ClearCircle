@@ -9,7 +9,7 @@
 
 ## Agent
 
-Publication is currently blocked by GitHub write access. Until the branches are published, use the included source tree or clone `ClearCircle.git.bundle` from the completed review ZIP. The GitHub clone/branch commands below apply after publication; see [publication status](publication-status.md).
+All four feature branches are published. [Review PR #1](https://github.com/CinthiaOchoa/ClearCircle/pull/1) targets main and has not been merged. Clone and switch to the final feature branch below; see [publication status](publication-status.md).
 
 ```bash
 git clone https://github.com/CinthiaOchoa/ClearCircle.git

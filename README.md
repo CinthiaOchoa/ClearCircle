@@ -89,4 +89,4 @@ This prototype supports **one configured parent and one helper**, one active let
 
 ## Review branches
 
-The implementation is stacked across `feat/photon-integration`, `feat/document-ai`, `feat/family-coordination`, and `feat/clearcircle-web`. The final branch contains all work and is intended as the head of the single review PR into `main`. Publication is currently blocked by GitHub write access; see [publication status](docs/publication-status.md). No merge or direct push to `main` is part of this workflow.
+The implementation is published across `feat/photon-integration`, `feat/document-ai`, `feat/family-coordination`, and `feat/clearcircle-web`. The final branch contains all work and is the head of the single [review PR #1 into main](https://github.com/CinthiaOchoa/ClearCircle/pull/1). See [publication status](docs/publication-status.md). The PR has not been merged, and main was not pushed directly.

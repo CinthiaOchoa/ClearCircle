@@ -1,23 +1,24 @@
-# Publication status — October 10, 2026
+# Publication status — October 10, 2026 (America/New_York)
 
-Implementation, screenshots and local validation are complete and committed on four local feature branches. **The feature branches were not published and no PR was created.**
+All four feature branches are published:
 
-- Native Git clone/fetch worked, but push failed because command-line GitHub credentials were unavailable.
-- The GitHub connection reports authenticated login `ti84plusprograms`. Its accessible app installations are for `ti84plusprograms` and `Sarvesh-Sathish`, not the target owner `CinthiaOchoa`.
-- The target repository's metadata reported push permission, but both blob creation and branch creation returned HTTP **403**, `Resource not accessible by integration`.
-- Final remote inspection showed only `main` at `f7cd57d6bad7a7d586694650dd14a53fa9dda60c`. No remote branches or PR were created; main was not modified.
+- `feat/photon-integration`
+- `feat/document-ai`
+- `feat/family-coordination`
+- `feat/clearcircle-web`
 
-Publishing needs a GitHub connection/application authorized to write this repository, or an authenticated local GitHub CLI login with sufficient repository access (including workflow-file updates). No password/token should be pasted into chat.
+Exactly one final [review PR #1](https://github.com/CinthiaOchoa/ClearCircle/pull/1) is open from `feat/clearcircle-web` into `main`. It has not been merged. Main remains at `f7cd57d6bad7a7d586694650dd14a53fa9dda60c` and was not pushed directly.
 
-The completed review ZIP includes a self-contained `ClearCircle.git.bundle` preserving main and all four feature branches, the complete source tree, five synthetic screenshots, setup/test reports and a top-level `publish-review.sh` copied from `scripts/publish-review.sh`.
+## Resolved access blocker
 
-To publish on your own machine after extracting the package:
+Earlier publication attempts returned HTTP 403 because the connected GitHub app could not access the repository under its owner. After the `CinthiaOchoa` installation became available, write access succeeded. Native Git still lacked credentials, so publication used the authorized GitHub connection.
 
-```bash
-gh auth login
-./publish-review.sh
-```
+Every uploaded blob SHA and implementation commit tree SHA was compared with the tested local Git objects. All matched. The GitHub-created commits have different commit SHAs because author/timestamp metadata differs, while their file trees are identical. A documentation-only follow-up records this publication status.
 
-The script clones the bundle into a new directory, checks that remote main has not changed, refuses to overwrite divergent feature branches, pushes only the four feature refs, and creates/reuses one final PR into main. It never merges or pushes main. Do not rerun against a different repository. If main changed, reconcile and retest on a feature branch first.
+## Review handoff
 
-After access is corrected in this session, the same local commits can be published without rebuilding the implementation. Live Photon/Gemini verification remains a separate credential requirement.
+Use the published final feature branch and [setup instructions](setup.md), [validation report](test-results.md), and [live integration checklist](demo-script.md). Screenshots in `screenshots/` contain only synthetic data.
+
+The previously delivered ZIP preserves the earlier local history and historical blocker report. Prefer the published branch for current documentation. Its offline publishing script refuses divergent branches and is no longer needed; do not use it to overwrite the published history.
+
+Live Photon/Gemini testing remains unverified without credentials. Hosted CI must be checked independently of the passing local tests. Voice and rich iMessage cards remain on the roadmap.
