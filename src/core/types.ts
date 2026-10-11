@@ -34,6 +34,7 @@ export type Task = {
   evidence: Evidence[];
   reminderAt: number | null;
   reminderSentAt: number | null;
+  offeredAt: number | null;
   createdAt: number;
   completedAt: number | null;
   completionNote: string | null;
@@ -48,7 +49,18 @@ export interface Messenger {
 export interface Extractor {
   extract(image: ImageInput): Promise<Extraction>;
 }
+export type Delivery = { id: string; recipient: string; body: string; taskId: string | null; allowedStatus: TaskStatus | null; requireConsent: boolean; attempts: number; leaseUntil: number | null; nextAttemptAt: number; deliveredAt: number | null };
 export interface TaskStore {
+  transaction<T>(work: () => T): T;
+  optOut(id: string): void;
+  listTasks(parentId: string): Task[];
+  enqueue(delivery: Omit<Delivery, 'attempts' | 'leaseUntil' | 'nextAttemptAt' | 'deliveredAt'>): void;
+  dueDeliveries(now: number): Delivery[];
+  leaseDelivery(id: string, now: number): boolean;
+  finishDelivery(id: string, now: number): void;
+  confirmDelivery(id: string, now: number): void;
+  retryDelivery(id: string, now: number): void;
+  pendingCount(): number;
   participant(id: string): Participant | null;
   optIn(id: string, dmSpaceId: string): void;
   seen(messageId: string): boolean;
