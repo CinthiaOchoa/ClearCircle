@@ -51,3 +51,8 @@ test('delivery errors propagate so durable backend can retry', async () => {
   const space = { type: 'dm', send: async () => { throw new Error('offline'); }, getMembers: async () => [] };
   await assert.rejects(createPhotonTransport({ direct: async () => space, group: async () => space }, parent, helper, null).sendToParticipant(parent, 'hello'), /offline/);
 });
+test('a timed-out partial download is rejected rather than analyzed as a complete photo', async () => {
+  let cancelled = false;
+  await assert.rejects(readAttachment({ mimeType: 'image/png', stream: async () => new ReadableStream({ start(c) { c.enqueue(Buffer.from('partial')); }, cancel() { cancelled = true; } }) },10),/timed out/);
+  assert.equal(cancelled,true);
+});

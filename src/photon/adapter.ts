@@ -9,7 +9,7 @@ const record = (value: unknown): Record<string, unknown> | null =>
 
 // Spectrum attachments are lazy SDK objects with stream()/read(), not inline bytes.
 // Use its authenticated stream, never fetch a message-supplied URL. Read only AFTER consent.
-export async function readAttachment(content: Record<string, unknown>): Promise<ImageInput> {
+export async function readAttachment(content: Record<string, unknown>, timeoutMs = 30_000): Promise<ImageInput> {
   const mimeType = content.mimeType as ImageInput['mimeType'];
   if (!acceptedMime.includes(mimeType)) throw new Error('Unsupported image; send JPEG, PNG or WebP');
   if (typeof content.size === 'number' && content.size > MAX_IMAGE_BYTES) throw new Error('Image exceeds 6 MB');
@@ -19,7 +19,7 @@ export async function readAttachment(content: Record<string, unknown>): Promise<
   const chunks: Uint8Array[] = [];
   let size = 0;
   let timedOut = false;
-  const timeout = setTimeout(() => { timedOut = true; void reader.cancel().catch(() => {}); }, 30_000);
+  const timeout = setTimeout(() => { timedOut = true; void reader.cancel().catch(() => {}); }, timeoutMs);
   try {
     while (true) {
       const { done, value } = await reader.read();
@@ -87,12 +87,14 @@ export function createPhotonTransport(access: PhotonAccess, parentId: string, he
 
 export async function connectPhoton(groupId: string | null, parentId: string, helperId: string) {
   if (!process.env.PROJECT_ID || !process.env.PROJECT_SECRET) throw new Error('Photon credentials are not set');
+  const line = process.env.PHOTON_LINE_NUMBER;
+  if (line && !/^\+[1-9]\d{7,14}$/.test(line)) throw new Error('Invalid PHOTON_LINE_NUMBER');
   const app = await Spectrum({ projectId: process.env.PROJECT_ID, projectSecret: process.env.PROJECT_SECRET,
     providers: [imessage.config()] });
   const im = imessage(app);
   const transport = createPhotonTransport({
-    direct: async id => im.space.create(await im.user(id)),
-    group: async id => im.space.get(id)
+    direct: async id => im.space.create(await im.user(id), line ? { phone: line } : {}),
+    group: async id => im.space.get(id, line ? { phone: line } : {})
   }, parentId, helperId, groupId);
   return { messages: app.messages, transport, stop: () => app.stop() };
 }

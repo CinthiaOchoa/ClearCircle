@@ -69,7 +69,8 @@ export class SqliteStore implements TaskStore {
     from.forEach(f => assertTransition(f,to));
     const map: Partial<Record<keyof Task,string>> = { ownerId: 'owner_id', reminderAt: 'reminder_at', reminderSentAt: 'reminder_sent_at', completedAt: 'completed_at', completionNote: 'completion_note', offeredAt: 'offered_at' };
     const extra = Object.entries(patch).filter(([k]) => k in map);
-    const result = this.db.prepare(`UPDATE tasks SET status=?,${extra.length ? extra.map(([k]) => `${map[k as keyof Task]}=?`).join(',') + ',' : ''}id=id WHERE id=? AND status IN (${from.map(() => '?').join(',')})`).run(to,...extra.map(([,v]) => { if (v == null || typeof v === 'string' || typeof v === 'number') return v ?? null; throw new Error('Invalid task patch'); }),id,...from);
+    const fields = ['status=?', ...extra.map(([k]) => `${map[k as keyof Task]}=?`)];
+    const result = this.db.prepare(`UPDATE tasks SET ${fields.join(',')} WHERE id=? AND status IN (${from.map(() => '?').join(',')})`).run(to,...extra.map(([,v]) => { if (v == null || typeof v === 'string' || typeof v === 'number') return v ?? null; throw new Error('Invalid task patch'); }),id,...from);
     return result.changes ? this.byId(id) : null;
   }
   claim(id: string, helper: string, remindAt: number): Task | null {
