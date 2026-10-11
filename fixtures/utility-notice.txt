@@ -1,0 +1,23 @@
+FICTIONAL DOCUMENT FOR HACKATHON TESTING — NOT A REAL UTILITY NOTICE
+
+Peach State Utilities
+Account Notice | October 10, 2026
+
+Dear Customer,
+
+Our records show a past-due balance on your utility account.
+Past-due balance: $86.40
+
+Please contact us by October 15, 2026 to review the past-due balance.
+If the account issue is not resolved, service interruption may occur.
+
+We do not request gift cards, cryptocurrency or payment over text.
+Do not send personal information in response to unsolicited messages.
+
+Sincerely,
+Customer Support Team
+Peach State Utilities (fictional)
+
+This letter is a synthetic fixture created for ClearCircle. There is no phone
+number, website, or payment destination. To test the model, print this page
+and photograph it, or convert the text to an image locally.
